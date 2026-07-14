@@ -23,4 +23,6 @@ urlpatterns = [
     path("", include("dashboard.urls")),
 
     path("employees/", include("employees.urls")),
+
+    path("assets/", include("assets.urls")),    
 ]

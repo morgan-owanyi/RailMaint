@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     # Third-party apps
     'rest_framework',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     # Local apps
     'accounts',
@@ -136,3 +138,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Asset Details{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header">
+
+        <h3>{{ asset.name }}</h3>
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th>Asset Number</th>
+                <td>{{ asset.asset_number }}</td>
+            </tr>
+
+            <tr>
+                <th>Category</th>
+                <td>{{ asset.category }}</td>
+            </tr>
+
+            <tr>
+                <th>Manufacturer</th>
+                <td>{{ asset.manufacturer }}</td>
+            </tr>
+
+            <tr>
+                <th>Model</th>
+                <td>{{ asset.model }}</td>
+            </tr>
+
+            <tr>
+                <th>Serial Number</th>
+                <td>{{ asset.serial_number }}</td>
+            </tr>
+
+            <tr>
+                <th>Year</th>
+                <td>{{ asset.year_of_manufacture }}</td>
+            </tr>
+
+            <tr>
+                <th>Purchase Date</th>
+                <td>{{ asset.purchase_date }}</td>
+            </tr>
+
+            <tr>
+                <th>Location</th>
+                <td>{{ asset.location }}</td>
+            </tr>
+
+            <tr>
+                <th>Status</th>
+                <td>{{ asset.status }}</td>
+            </tr>
+
+            <tr>
+                <th>Notes</th>
+                <td>{{ asset.notes }}</td>
+            </tr>
+
+        </table>
+
+        <a href="{% url 'assets:update' asset.id %}" class="btn btn-warning">
+
+            Edit
+
+        </a>
+
+        <a href="{% url 'assets:list' %}" class="btn btn-secondary">
+
+            Back
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
