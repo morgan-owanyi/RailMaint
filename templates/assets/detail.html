@@ -4,11 +4,13 @@
 
 {% block content %}
 
-<div class="card shadow">
+<h2>Asset Details</h2>
+
+<div class="card mb-4">
 
     <div class="card-header">
 
-        <h3>{{ asset.name }}</h3>
+        <strong>{{ asset.name }}</strong>
 
     </div>
 
@@ -17,71 +19,211 @@
         <table class="table table-bordered">
 
             <tr>
+
                 <th>Asset Number</th>
+
                 <td>{{ asset.asset_number }}</td>
+
             </tr>
 
             <tr>
+
                 <th>Category</th>
+
                 <td>{{ asset.category }}</td>
+
             </tr>
 
             <tr>
+
                 <th>Manufacturer</th>
+
                 <td>{{ asset.manufacturer }}</td>
+
             </tr>
 
             <tr>
+
                 <th>Model</th>
+
                 <td>{{ asset.model }}</td>
+
             </tr>
 
             <tr>
-                <th>Serial Number</th>
-                <td>{{ asset.serial_number }}</td>
-            </tr>
 
-            <tr>
-                <th>Year</th>
-                <td>{{ asset.year_of_manufacture }}</td>
-            </tr>
-
-            <tr>
-                <th>Purchase Date</th>
-                <td>{{ asset.purchase_date }}</td>
-            </tr>
-
-            <tr>
                 <th>Location</th>
+
                 <td>{{ asset.location }}</td>
+
             </tr>
 
             <tr>
+
                 <th>Status</th>
+
                 <td>{{ asset.status }}</td>
+
             </tr>
 
             <tr>
-                <th>Notes</th>
-                <td>{{ asset.notes }}</td>
+
+                <th>Purchase Date</th>
+
+                <td>{{ asset.purchase_date }}</td>
+
             </tr>
 
         </table>
 
-        <a href="{% url 'assets:update' asset.id %}" class="btn btn-warning">
+    </div>
 
-            Edit
+</div>
 
-        </a>
+<div class="card mb-4">
 
-        <a href="{% url 'assets:list' %}" class="btn btn-secondary">
+    <div class="card-header">
 
-            Back
+        <h4>Work Orders</h4>
 
-        </a>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-striped">
+
+            <thead>
+
+                <tr>
+
+                    <th>Work Order</th>
+
+                    <th>Title</th>
+
+                    <th>Status</th>
+
+                    <th>Priority</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for workorder in workorders %}
+
+                <tr>
+
+                    <td>{{ workorder.work_order_number }}</td>
+
+                    <td>{{ workorder.title }}</td>
+
+                    <td>{{ workorder.status }}</td>
+
+                    <td>{{ workorder.priority }}</td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="4">
+
+                        No work orders found.
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
 
     </div>
 
 </div>
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h4>Maintenance History</h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-striped">
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+
+                    <th>Technician</th>
+
+                    <th>Hours</th>
+
+                    <th>Work Performed</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for log in maintenance_logs %}
+
+                <tr>
+
+                    <td>{{ log.maintenance_date }}</td>
+
+                    <td>{{ log.technician }}</td>
+
+                    <td>{{ log.hours_worked }}</td>
+
+                    <td>{{ log.work_performed }}</td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="4">
+
+                        No maintenance history available.
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<br>
+
+<a href="{% url 'assets:update' asset.id %}" class="btn btn-warning">
+
+    Edit Asset
+
+</a>
+
+<a href="{% url 'assets:list' %}" class="btn btn-secondary">
+
+    Back
+
+</a>
 
 {% endblock %}

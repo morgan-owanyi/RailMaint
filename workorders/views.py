@@ -43,18 +43,24 @@ def workorder_create(request):
 
 
 def workorder_detail(request, pk):
-
     workorder = get_object_or_404(
         WorkOrder,
         pk=pk
     )
 
+    maintenance_logs = MaintenanceLog.objects.filter(
+        work_order=workorder
+    ).order_by("-maintenance_date")
+
+    context = {
+        "workorder": workorder,
+        "maintenance_logs": maintenance_logs,
+    }
+
     return render(
         request,
         "workorders/detail.html",
-        {
-            "workorder": workorder
-        }
+        context
     )
 
 

@@ -5,7 +5,6 @@ from .forms import MaintenanceLogForm
 
 
 def maintenance_list(request):
-
     logs = MaintenanceLog.objects.all()
 
     return render(
@@ -18,19 +17,23 @@ def maintenance_list(request):
 
 
 def maintenance_create(request):
-
     if request.method == "POST":
 
         form = MaintenanceLogForm(request.POST)
 
         if form.is_valid():
 
-            form.save()
+            log = form.save()
+
+            workorder = log.work_order
+
+            if workorder.status == "OPEN":
+                workorder.status = "IN_PROGRESS"
+                workorder.save()
 
             return redirect("maintenance:list")
 
     else:
-
         form = MaintenanceLogForm()
 
     return render(
@@ -43,7 +46,6 @@ def maintenance_create(request):
 
 
 def maintenance_detail(request, pk):
-
     log = get_object_or_404(
         MaintenanceLog,
         pk=pk
@@ -59,7 +61,6 @@ def maintenance_detail(request, pk):
 
 
 def maintenance_update(request, pk):
-
     log = get_object_or_404(
         MaintenanceLog,
         pk=pk
@@ -94,7 +95,6 @@ def maintenance_update(request, pk):
 
 
 def maintenance_delete(request, pk):
-
     log = get_object_or_404(
         MaintenanceLog,
         pk=pk

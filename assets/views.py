@@ -49,14 +49,29 @@ def asset_detail(request, pk):
         pk=pk
     )
 
+    workorders = WorkOrder.objects.filter(
+        asset=asset
+    ).order_by("-created_at")
+
+    maintenance_logs = MaintenanceLog.objects.filter(
+        work_order__asset=asset
+    ).order_by("-maintenance_date")
+
+    context = {
+
+        "asset": asset,
+
+        "workorders": workorders,
+
+        "maintenance_logs": maintenance_logs,
+
+    }
+
     return render(
         request,
         "assets/detail.html",
-        {
-            "asset": asset
-        }
+        context
     )
-
 
 def asset_update(request, pk):
 

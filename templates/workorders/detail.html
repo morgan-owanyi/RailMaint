@@ -4,67 +4,158 @@
 
 {% block content %}
 
-<h2>Work Order Details</h2>
+<div class="container mt-4">
 
-<table class="table table-bordered">
+    <h2 class="mb-3">Work Order Details</h2>
 
-<tr>
-<th>Work Order Number</th>
-<td>{{ workorder.work_order_number }}</td>
-</tr>
+    <div class="card mb-4">
 
-<tr>
-<th>Title</th>
-<td>{{ workorder.title }}</td>
-</tr>
+        <div class="card-header">
 
-<tr>
-<th>Asset</th>
-<td>{{ workorder.asset }}</td>
-</tr>
+            <strong>{{ workorder.work_order_number }}</strong>
 
-<tr>
-<th>Assigned Employee</th>
-<td>{{ workorder.assigned_employee }}</td>
-</tr>
+        </div>
 
-<tr>
-<th>Priority</th>
-<td>{{ workorder.priority }}</td>
-</tr>
+        <div class="card-body">
 
-<tr>
-<th>Status</th>
-<td>{{ workorder.status }}</td>
-</tr>
+            <table class="table table-bordered">
 
-<tr>
-<th>Description</th>
-<td>{{ workorder.description }}</td>
-</tr>
+                <tr>
+                    <th>Work Order Number</th>
+                    <td>{{ workorder.work_order_number }}</td>
+                </tr>
 
-<tr>
-<th>Reported By</th>
-<td>{{ workorder.reported_by }}</td>
-</tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ workorder.title }}</td>
+                </tr>
 
-<tr>
-<th>Target Completion</th>
-<td>{{ workorder.target_completion }}</td>
-</tr>
+                <tr>
+                    <th>Asset</th>
+                    <td>{{ workorder.asset }}</td>
+                </tr>
 
-</table>
+                <tr>
+                    <th>Assigned Employee</th>
+                    <td>{{ workorder.assigned_employee }}</td>
+                </tr>
 
-<a href="{% url 'workorders:update' workorder.id %}" class="btn btn-warning">
+                <tr>
+                    <th>Priority</th>
+                    <td>{{ workorder.priority }}</td>
+                </tr>
 
-Edit
+                <tr>
+                    <th>Status</th>
+                    <td>{{ workorder.status }}</td>
+                </tr>
 
-</a>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ workorder.description }}</td>
+                </tr>
 
-<a href="{% url 'workorders:list' %}" class="btn btn-secondary">
+                <tr>
+                    <th>Reported By</th>
+                    <td>{{ workorder.reported_by }}</td>
+                </tr>
 
-Back
+                <tr>
+                    <th>Target Completion</th>
+                    <td>{{ workorder.target_completion }}</td>
+                </tr>
 
-</a>
+                {% if workorder.completed_at %}
+                <tr>
+                    <th>Completed At</th>
+                    <td>{{ workorder.completed_at }}</td>
+                </tr>
+                {% endif %}
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+
+            <strong>Maintenance Logs</strong>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+
+                        <th>Technician</th>
+
+                        <th>Hours</th>
+
+                        <th>Work Performed</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for log in maintenance_logs %}
+
+                    <tr>
+
+                        <td>{{ log.maintenance_date }}</td>
+
+                        <td>{{ log.technician }}</td>
+
+                        <td>{{ log.hours_worked }}</td>
+
+                        <td>{{ log.work_performed }}</td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="4">
+
+                            No maintenance logs have been recorded for this work order.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <a href="{% url 'workorders:update' workorder.id %}" class="btn btn-warning">
+
+        Edit
+
+    </a>
+
+    <a href="{% url 'workorders:list' %}" class="btn btn-secondary">
+
+        Back
+
+    </a>
+
+</div>
 
 {% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Maintenance Log Details{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>Maintenance Log Details</h2>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Work Order</th>
+                    <td>{{ log.work_order.work_order_number }}</td>
+                </tr>
+
+                <tr>
+                    <th>Technician</th>
+                    <td>{{ log.technician }}</td>
+                </tr>
+
+                <tr>
+                    <th>Maintenance Date</th>
+                    <td>{{ log.maintenance_date }}</td>
+                </tr>
+
+                <tr>
+                    <th>Hours Worked</th>
+                    <td>{{ log.hours_worked }}</td>
+                </tr>
+
+                <tr>
+                    <th>Work Performed</th>
+                    <td>{{ log.work_performed }}</td>
+                </tr>
+
+                <tr>
+                    <th>Remarks</th>
+                    <td>{{ log.remarks }}</td>
+                </tr>
+
+                <tr>
+                    <th>Created At</th>
+                    <td>{{ log.created_at }}</td>
+                </tr>
+
+            </table>
+
+            <a href="{% url 'maintenance:update' log.id %}" class="btn btn-warning">
+
+                Edit
+
+            </a>
+
+            <a href="{% url 'maintenance:list' %}" class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

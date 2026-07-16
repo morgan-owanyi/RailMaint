@@ -4,46 +4,184 @@
 
 {% block content %}
 
-<h2 class="mb-4">
-    Dashboard
-</h2>
+<h2 class="mb-4">Dashboard</h2>
 
 <div class="row">
 
-    <div class="col-lg-3">
-        <div class="card shadow-sm border-0">
+    <div class="col-md-3">
+
+        <div class="card text-center">
+
             <div class="card-body">
-                <h6>Total Assets</h6>
-                <h2>152</h2>
+
+                <h5>Employees</h5>
+
+                <h2>{{ employee_count }}</h2>
+
             </div>
+
         </div>
+
     </div>
 
-    <div class="col-lg-3">
-        <div class="card shadow-sm border-0">
+    <div class="col-md-3">
+
+        <div class="card text-center">
+
             <div class="card-body">
-                <h6>Employees</h6>
-                <h2>48</h2>
+
+                <h5>Assets</h5>
+
+                <h2>{{ asset_count }}</h2>
+
             </div>
+
         </div>
+
     </div>
 
-    <div class="col-lg-3">
-        <div class="card shadow-sm border-0">
+    <div class="col-md-3">
+
+        <div class="card text-center">
+
             <div class="card-body">
-                <h6>Active Work Orders</h6>
-                <h2>12</h2>
+
+                <h5>Open Work Orders</h5>
+
+                <h2>{{ open_workorders }}</h2>
+
             </div>
+
         </div>
+
     </div>
 
-    <div class="col-lg-3">
-        <div class="card shadow-sm border-0">
+    <div class="col-md-3">
+
+        <div class="card text-center">
+
             <div class="card-body">
-                <h6>Pending Inspection</h6>
-                <h2>5</h2>
+
+                <h5>Completed</h5>
+
+                <h2>{{ completed_workorders }}</h2>
+
             </div>
+
         </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-md-6">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                Recent Work Orders
+
+            </div>
+
+            <div class="card-body">
+
+                <table class="table">
+
+                    <tr>
+
+                        <th>Number</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                    {% for workorder in recent_workorders %}
+
+                    <tr>
+
+                        <td>{{ workorder.work_order_number }}</td>
+
+                        <td>{{ workorder.status }}</td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="2">
+
+                            No work orders.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                Recent Maintenance Logs
+
+            </div>
+
+            <div class="card-body">
+
+                <table class="table">
+
+                    <tr>
+
+                        <th>Work Order</th>
+
+                        <th>Technician</th>
+
+                    </tr>
+
+                    {% for log in recent_logs %}
+
+                    <tr>
+
+                        <td>{{ log.work_order }}</td>
+
+                        <td>{{ log.technician }}</td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="2">
+
+                            No maintenance logs.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>
