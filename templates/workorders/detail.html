@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Work Order Details{% endblock %}
+
+{% block content %}
+
+<h2>Work Order Details</h2>
+
+<table class="table table-bordered">
+
+<tr>
+<th>Work Order Number</th>
+<td>{{ workorder.work_order_number }}</td>
+</tr>
+
+<tr>
+<th>Title</th>
+<td>{{ workorder.title }}</td>
+</tr>
+
+<tr>
+<th>Asset</th>
+<td>{{ workorder.asset }}</td>
+</tr>
+
+<tr>
+<th>Assigned Employee</th>
+<td>{{ workorder.assigned_employee }}</td>
+</tr>
+
+<tr>
+<th>Priority</th>
+<td>{{ workorder.priority }}</td>
+</tr>
+
+<tr>
+<th>Status</th>
+<td>{{ workorder.status }}</td>
+</tr>
+
+<tr>
+<th>Description</th>
+<td>{{ workorder.description }}</td>
+</tr>
+
+<tr>
+<th>Reported By</th>
+<td>{{ workorder.reported_by }}</td>
+</tr>
+
+<tr>
+<th>Target Completion</th>
+<td>{{ workorder.target_completion }}</td>
+</tr>
+
+</table>
+
+<a href="{% url 'workorders:update' workorder.id %}" class="btn btn-warning">
+
+Edit
+
+</a>
+
+<a href="{% url 'workorders:list' %}" class="btn btn-secondary">
+
+Back
+
+</a>
+
+{% endblock %}

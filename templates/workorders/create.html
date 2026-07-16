@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Work Order{% endblock %}
+
+{% block content %}
+
+<h2>Create Work Order</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button class="btn btn-primary">
+
+        Save
+
+    </button>
+
+    <a href="{% url 'workorders:list' %}" class="btn btn-secondary">
+
+        Cancel
+
+    </a>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Maintenance Log{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>Add Maintenance Log</h2>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit" class="btn btn-success">
+
+                    Save Log
+
+                </button>
+
+                <a href="{% url 'maintenance:list' %}" class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Work Order{% endblock %}
+
+{% block content %}
+
+<h2>Delete Work Order</h2>
+
+<p>
+
+Are you sure you want to delete
+
+<strong>{{ workorder.work_order_number }}</strong>?
+
+</p>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<button class="btn btn-danger">
+
+Delete
+
+</button>
+
+<a href="{% url 'workorders:list' %}" class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</form>
+
+{% endblock %}
