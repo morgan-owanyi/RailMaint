@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Asset
 from .forms import AssetForm
+from workorders.models import WorkOrder
+from maintenance_logs.models import MaintenanceLog
 
 
 def asset_list(request):

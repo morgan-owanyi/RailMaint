@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import WorkOrder
 from .forms import WorkOrderForm
+from maintenance_logs.models import MaintenanceLog
 
 
 def workorder_list(request):
