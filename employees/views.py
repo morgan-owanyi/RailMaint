@@ -1,12 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Employee
 from .forms import EmployeeForm
+from .models import Employee
+from .services import EmployeeService
 
 
+@login_required
 def employee_list(request):
 
-    employees = Employee.objects.all()
+    employees = Employee.objects.select_related(
+        "department",
+        "user"
+    ).all().order_by("employee_number")
 
     return render(
         request,
@@ -17,6 +24,7 @@ def employee_list(request):
     )
 
 
+@login_required
 def employee_create(request):
 
     if request.method == "POST":
@@ -25,9 +33,14 @@ def employee_create(request):
 
         if form.is_valid():
 
-            form.save()
+            EmployeeService.create_employee(form)
 
-            return redirect("employees:list")
+            messages.success(
+                request,
+                "Employee created successfully."
+            )
+
+            return redirect("employee_list")
 
     else:
 
@@ -42,9 +55,13 @@ def employee_create(request):
     )
 
 
+@login_required
 def employee_detail(request, pk):
 
-    employee = get_object_or_404(Employee, pk=pk)
+    employee = get_object_or_404(
+        Employee,
+        pk=pk
+    )
 
     return render(
         request,
@@ -55,9 +72,13 @@ def employee_detail(request, pk):
     )
 
 
+@login_required
 def employee_update(request, pk):
 
-    employee = get_object_or_404(Employee, pk=pk)
+    employee = get_object_or_404(
+        Employee,
+        pk=pk
+    )
 
     if request.method == "POST":
 
@@ -70,7 +91,12 @@ def employee_update(request, pk):
 
             form.save()
 
-            return redirect("employees:list")
+            messages.success(
+                request,
+                "Employee updated successfully."
+            )
+
+            return redirect("employee_list")
 
     else:
 
@@ -80,20 +106,33 @@ def employee_update(request, pk):
         request,
         "employees/update.html",
         {
-            "form": form
+            "form": form,
+            "employee": employee
         }
     )
 
 
+@login_required
 def employee_delete(request, pk):
 
-    employee = get_object_or_404(Employee, pk=pk)
+    employee = get_object_or_404(
+        Employee,
+        pk=pk
+    )
 
     if request.method == "POST":
 
-        employee.delete()
+        if employee.user:
+            employee.user.delete()
+        else:
+            employee.delete()
 
-        return redirect("employees:list")
+        messages.success(
+            request,
+            "Employee deleted successfully."
+        )
+
+        return redirect("employee_list")
 
     return render(
         request,

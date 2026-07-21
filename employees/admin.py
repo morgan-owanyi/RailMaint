@@ -1,33 +1,15 @@
 from django.contrib import admin
-
-from .models import Employee, Department
-
-
-@admin.register(Department)
-class DepartmentAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "name",
-    )
-
-    search_fields = (
-        "name",
-    )
+from .models import Employee
 
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-
     list_display = (
         "employee_number",
-        "full_name",
+        "first_name",
+        "last_name",
         "department",
-        "designation",
-        "status",
-    )
-
-    list_filter = (
-        "department",
+        "position",
         "status",
     )
 
@@ -35,6 +17,12 @@ class EmployeeAdmin(admin.ModelAdmin):
         "employee_number",
         "first_name",
         "last_name",
+        "email",
+    )
+
+    list_filter = (
+        "department",
+        "status",
     )
 
     ordering = (

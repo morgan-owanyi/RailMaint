@@ -1,8 +1,25 @@
 from django import forms
+from django.contrib.auth.models import Group
+
 from .models import Employee
 
 
 class EmployeeForm(forms.ModelForm):
+
+    username = forms.CharField(
+        max_length=150,
+        help_text="Login username"
+    )
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        help_text="Temporary password"
+    )
+
+    role = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        empty_label="Select Role"
+    )
 
     class Meta:
         model = Employee
@@ -11,16 +28,12 @@ class EmployeeForm(forms.ModelForm):
             "employee_number",
             "first_name",
             "last_name",
-            "email",
-            "phone",
             "department",
-            "designation",
-            "employment_date",
+            "position",
+            "phone",
+            "email",
             "status",
+            "username",
+            "password",
+            "role",
         ]
-
-        widgets = {
-            "employment_date": forms.DateInput(
-                attrs={"type": "date"}
-            ),
-        }

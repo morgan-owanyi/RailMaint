@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'inspections',
     'equipment',
     'dashboard',
+    'departments',
     'reports'
 ]
 
